@@ -1,4 +1,5 @@
-android-launchables-itens
+Launchables Itens
 =========================
 
-Show Acitivities and Widgets launchables on your phone
+Show Acitivities and Widgets launchables on your phone.
+
