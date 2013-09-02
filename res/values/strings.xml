@@ -10,5 +10,7 @@
     <string name="what_you_want_to_add">What you want to add ?</string>
     <string name="acitivies">Acitivies</string>
     <string name="widget">Widget</string>
+    <string name="activities">Activities</string>
+    <string name="widgets">Widgets</string>
 
 </resources>
