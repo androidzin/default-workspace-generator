@@ -29,7 +29,7 @@ public class FragmentInfoWidget extends SherlockListFragment implements TabListe
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<LaunchableListItem> data = GetSampleData();
-		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, data);
+		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, data, (OnItemCheckedListener) getActivity());
 		setListAdapter(adapter);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
@@ -80,4 +80,5 @@ public class FragmentInfoWidget extends SherlockListFragment implements TabListe
 		Log.d(TAG, "OnTabUnselected");
 		ft.remove(mFragment);
 	}
+	
 }

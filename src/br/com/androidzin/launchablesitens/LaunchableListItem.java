@@ -8,7 +8,16 @@ public class LaunchableListItem {
 	private String itemPackage;
 	private Drawable itemIcon;
 	private boolean isSelected;
+	private int homeScreenNumber;
 	
+	public int getHomeScreenNumber() {
+		return homeScreenNumber;
+	}
+
+	public void setHomeScreenNumber(int homeScreenNumber) {
+		this.homeScreenNumber = homeScreenNumber;
+	}
+
 	public LaunchableListItem(String itemLaunchable, String itemPackage,
 			Drawable itemIcon) {
 		super();

@@ -17,20 +17,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import br.com.androidzin.launchablesitens.HomeScreenDialog.NoticeDialogListener;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockListFragment;
 
-public class FragmentInfoActivity extends SherlockListFragment implements TabListener {
+public class FragmentInfoActivity extends SherlockListFragment implements TabListener{
 
 	private static final String TAG = "Tab";
 	private Fragment mFragment;
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<LaunchableListItem> data = GetSampleData();
-		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, data);
+		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, data, (OnItemCheckedListener) getActivity());
 		setListAdapter(adapter);
 		return inflater.inflate(R.layout.launchable_activity, container, false);
 	}
@@ -80,4 +82,5 @@ public class FragmentInfoActivity extends SherlockListFragment implements TabLis
 		Log.d(TAG, "OnTabUnselected");
 		ft.remove(mFragment);
 	}
+	
 }

@@ -12,5 +12,6 @@
     <string name="widget">Widget</string>
     <string name="activities">Activities</string>
     <string name="widgets">Widgets</string>
+    <string name="generate_json">Generate json</string>
 
 </resources>
