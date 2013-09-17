@@ -23,22 +23,12 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockListFragment;
 
-public class FragmentInfoActivity extends SherlockListFragment implements TabListener{
+public class FragmentInfoActivity extends FragmentInfo implements TabListener{
 
-	private static final String TAG = "Tab";
-	private Fragment mFragment;
-	
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		List<LaunchableListItem> data = GetSampleData();
-		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, data, (OnItemCheckedListener) getActivity());
-		setListAdapter(adapter);
-		return inflater.inflate(R.layout.launchable_activity, container, false);
-	}
-
-	private List<LaunchableListItem> GetSampleData() {
-		List<LaunchableListItem> launchableItem = new ArrayList<LaunchableListItem>();
+	protected List<LaunchableItem> getSampleData() {
+		Log.d("teste", "act chamada");
+		List<LaunchableItem> launchableItem = new ArrayList<LaunchableItem>();
 
 		PackageManager packageManager = getActivity().getPackageManager();
 		List<ResolveInfo> result = getLauncheableActivityList(packageManager);
@@ -50,7 +40,7 @@ public class FragmentInfoActivity extends SherlockListFragment implements TabLis
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}
-			LaunchableListItem item = new LaunchableListItem(resolveInfo.activityInfo.name,
+			LaunchableItem item = new ActivityItem(resolveInfo.activityInfo.name,
 					resolveInfo.activityInfo.packageName, icon);
 			launchableItem.add(item);
 		}
@@ -63,24 +53,4 @@ public class FragmentInfoActivity extends SherlockListFragment implements TabLis
 		List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(intent, 0);
 		return resolveInfoList;
 	}
-
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		Log.d(TAG, "OnTabReselected");
-	}
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		Log.d(TAG, "OnTabSelected");
-		mFragment = new FragmentInfoActivity();
-        ft.add(android.R.id.content, mFragment);
-        ft.attach(mFragment);
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		Log.d(TAG, "OnTabUnselected");
-		ft.remove(mFragment);
-	}
-	
 }
