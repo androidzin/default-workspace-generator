@@ -1,6 +1,7 @@
 package br.com.androidzin.launchablesitens;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -30,6 +31,8 @@ public class WorkspaceGenerator {
 					.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 			File xml = new File(path, DEFAULT_WORKSPACE_XML);
 
+			Collections.sort(selectedItens);
+			
 			if(generateXML(selectedItens, xml)){
 				return xml;
 			}

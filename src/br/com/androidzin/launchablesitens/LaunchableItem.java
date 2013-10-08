@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 
 import android.graphics.drawable.Drawable;
 
-public abstract class LaunchableItem {
+public abstract class LaunchableItem implements Comparable<LaunchableItem> {
 	
 	protected enum ItemType{ ACTIVITY, WIDGET};
 	protected static final  String PACKAGE_NAME = "launcher:packageName";
@@ -90,5 +90,16 @@ public abstract class LaunchableItem {
 	public abstract Element toXML(Document document) throws ParserConfigurationException;
 	
 	public abstract ItemType getType();
+	
+	@Override
+	public int compareTo(LaunchableItem another) {
+		if(homeScreenNumber < another.getHomeScreenNumber()){
+			return -1;
+		} else if (homeScreenNumber == another.getHomeScreenNumber()){
+			return 0;
+		} else {
+			return 1;
+		}
+	}
 
 }

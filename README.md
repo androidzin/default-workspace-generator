@@ -1,4 +1,4 @@
-Worspace Generator
+Workspace Generator
 =========================
 
 This applications aims to help developers that works with Android Customization. 
