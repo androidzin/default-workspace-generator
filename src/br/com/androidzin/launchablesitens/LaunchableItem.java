@@ -1,13 +1,24 @@
 package br.com.androidzin.launchablesitens;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import android.graphics.drawable.Drawable;
 
 public abstract class LaunchableItem {
 	
 	protected enum ItemType{ ACTIVITY, WIDGET};
+	protected static final  String PACKAGE_NAME = "launcher:packageName";
+	protected static final  String CLASS_NAME = "launcher:className";
+	protected static final  String LAUNCHER_SCREEN = "launcher:screen";
+	protected static final  String X = "launcher:x";
+	protected static final  String Y = "launcher:y";
+	protected static final  String SPAN_X = "launcher:spanX";
+	protected static final  String SPAN_Y = "launcher:spanY";
 	
 	private String itemLaunchable;
 	private String itemPackage;
@@ -75,6 +86,8 @@ public abstract class LaunchableItem {
 		}
 		return null;
 	}
+	
+	public abstract Element toXML(Document document) throws ParserConfigurationException;
 	
 	public abstract ItemType getType();
 

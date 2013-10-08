@@ -24,7 +24,7 @@ public abstract class FragmentInfo extends SherlockListFragment implements TabLi
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if(data == null) data = getSampleData();
-		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, this.data, (OnItemCheckedListener) getActivity());
+		ArrayAdapter<LaunchableItem> adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, this.data, (OnItemCheckedListener) getActivity());
 		setListAdapter(adapter);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}

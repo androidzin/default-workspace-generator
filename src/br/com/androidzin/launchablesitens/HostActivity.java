@@ -1,21 +1,13 @@
 package br.com.androidzin.launchablesitens;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 import br.com.androidzin.launchablesitens.HomeScreenDialog.NoticeDialogListener;
-import br.com.androidzin.launchablesitens.LaunchableItem.ItemType;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -25,7 +17,6 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class HostActivity extends SherlockFragmentActivity implements NoticeDialogListener, OnItemCheckedListener  {
 
-	private static final String HOMESCREEN_JSON = "homescreen.json";
 	private LaunchableItem currentItem;
 	private List<LaunchableItem> launchableItens;
 	
@@ -64,7 +55,14 @@ public class HostActivity extends SherlockFragmentActivity implements NoticeDial
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if(item.getItemId() == R.id.generate_json){
-			generateJSON();
+			File savedFile = WorkspaceGenerator.saveXML(launchableItens);
+			String feedback = getString(R.string.file_not_saved);
+					
+			if(savedFile != null){
+				feedback = getString(R.string.file_saved_at) + savedFile.getAbsolutePath();
+			}
+			Toast.makeText(getApplicationContext(), feedback, Toast.LENGTH_LONG).show();
+			
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
@@ -72,54 +70,7 @@ public class HostActivity extends SherlockFragmentActivity implements NoticeDial
 		
 	}
 
-	private void generateJSON(){
-		if(!launchableItens.isEmpty()){
-			JSONObject root = new JSONObject();
-			JSONArray screens = new JSONArray();
-			JSONArray widgets[] = new JSONArray[5];
-			JSONArray activities[] = new JSONArray[5];
-			
-			for(int i = 0; i < 5; i++){
-				activities[i] = new JSONArray();
-				widgets[i] = new JSONArray();
-			}
-			
-			for (LaunchableItem launchableItem : launchableItens) {
-				if(launchableItem.getType() == ItemType.ACTIVITY){
-					activities[launchableItem.getHomeScreenNumber()].put(launchableItem.toJSON());
-				}else {
-					widgets[launchableItem.getHomeScreenNumber()].put(launchableItem.toJSON());
-				}
-			}
-			
-			try {
-				fillScreenArray(screens, widgets, activities);
-				root.put("screens", screens);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			Log.d("homescreen", root.toString());
-			
-		}
-	}
 
-	private void fillScreenArray(JSONArray screens, JSONArray[] widgets,
-			JSONArray[] activities) throws JSONException {
-		for(int i = 0; i < 5; i++){
-			JSONObject container = new JSONObject();
-			
-			if(activities[i].length() > 0){
-				container.put("activities", activities[i]);
-			}
-			if(widgets[i].length() > 0){
-				container.put("widgets", widgets[i]);
-			}
-			
-			screens.put(i, container);
-		}
-	}
-
-	
 	@Override
 	public void onItenChecked(LaunchableItem item) {		
 		currentItem = item;

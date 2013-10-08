@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Launchables Itens</string>
+    <string name="app_name">WorkspaceGenerator</string>
     <string name="action_settings">Settings</string>
     <string name="screen_config">Screen Config</string>
     <string name="number_of_screens">Number of screens</string>
     <string name="default_screen">Default screen</string>
-    <string name="what_you_want_to_add_">What you want to add ?</string>
     <string name="what_you_want_to_add">What you want to add ?</string>
     <string name="acitivies">Acitivies</string>
     <string name="widget">Widget</string>
     <string name="activities">Activities</string>
     <string name="widgets">Widgets</string>
-    <string name="generate_json">Generate json</string>
+    <string name="generate_xml">Generate XML</string>
+    <string name="file_not_saved">File was not saved. Something wrong happened</string>
+    <string name="file_saved_at">"File saved at: "</string>
 
 </resources>
