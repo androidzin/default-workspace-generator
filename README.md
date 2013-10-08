@@ -1,9 +1,9 @@
 Worspace Generator
 =========================
 
-This applications aims to help developers that works with Android Customization.
-It provides a easy way to choose your widget and shortcut application of 
-Android HomeScreen. Using it, you easily generate your **default_workspace.xml**,
+This applications aims to help developers that works with Android Customization. 
+It provides a easy way to choose your widget and shortcut application for 
+your Android HomeScreen. Using it, you easily generate your **default_workspace.xml**,
 file resposible to store homescreen configuration.
 
 To generate your file you just need do some steps:
