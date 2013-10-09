@@ -2,6 +2,7 @@ package br.com.androidzin.launchablesitens;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,9 @@ import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.SherlockListFragment;
 
 public abstract class FragmentInfo extends SherlockListFragment implements TabListener {
@@ -40,7 +44,6 @@ public abstract class FragmentInfo extends SherlockListFragment implements TabLi
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Log.d(TAG, "OnTabSelected");
-		
 		if (mFragment == null) {
 			try {
 				mFragment = this.getClass().newInstance();
@@ -49,7 +52,7 @@ public abstract class FragmentInfo extends SherlockListFragment implements TabLi
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
-			  ft.add(android.R.id.content, mFragment);
+			ft.replace(android.R.id.content, mFragment);
         } else {
             ft.attach(mFragment);
         }
