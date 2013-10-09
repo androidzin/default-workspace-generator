@@ -8,34 +8,15 @@ import android.appwidget.AppWidgetProviderInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
-import com.actionbarsherlock.app.SherlockListFragment;
 
-public class FragmentInfoWidget extends SherlockListFragment implements TabListener {
+public class FragmentInfoWidget extends FragmentInfo implements TabListener {
 
-	private Fragment mFragment;
-	private static final String TAG = "Tab";
 	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		List<LaunchableListItem> data = GetSampleData();
-		ArrayAdapter adapter = new LaunchableItemAdapter(getActivity(), R.layout.item, data);
-		setListAdapter(adapter);
-		return super.onCreateView(inflater, container, savedInstanceState);
-	}
-	
-	private List<LaunchableListItem> GetSampleData() {
-		List<LaunchableListItem> list = new ArrayList<LaunchableListItem>();
+	protected List<LaunchableItem> getSampleData() {
+		List<LaunchableItem> list = new ArrayList<LaunchableItem>();
 
 		PackageManager packageManager = getActivity().getPackageManager();
 
@@ -49,7 +30,7 @@ public class FragmentInfoWidget extends SherlockListFragment implements TabListe
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}
-			LaunchableListItem item = new LaunchableListItem(info.provider.getClassName(),	info.provider.getPackageName(), icon);
+			LaunchableItem item = new WidgetItem(info.provider.getClassName(),	info.provider.getPackageName(), icon);
 
 			list.add(item);
 
@@ -59,25 +40,5 @@ public class FragmentInfoWidget extends SherlockListFragment implements TabListe
 		}
 
 		return list;
-	}
-	
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		Log.d(TAG, "OnTabReselected");
-		
-	}
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		Log.d(TAG, "OnTabSelected");
-		mFragment = new FragmentInfoWidget();
-        ft.add(android.R.id.content, mFragment);
-        ft.attach(mFragment);
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		Log.d(TAG, "OnTabUnselected");
-		ft.remove(mFragment);
 	}
 }

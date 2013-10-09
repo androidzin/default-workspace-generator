@@ -13,12 +13,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LaunchableItemAdapter extends ArrayAdapter {
+public class LaunchableItemAdapter extends ArrayAdapter<LaunchableItem> {
 
-	private List<LaunchableListItem> itens;
+	private List<LaunchableItem> itens;
 	private LayoutInflater inflator;
 	private Context mContext;
-	
+	private OnItemCheckedListener action;
+
 	static class ViewHolder {
 		TextView appActivity, appPackage;
 		ImageView appIcon;
@@ -26,19 +27,22 @@ public class LaunchableItemAdapter extends ArrayAdapter {
 	}
 
 	public LaunchableItemAdapter(Context context, int layoutRowId,
-			List<LaunchableListItem> data) {
-		
+			List<LaunchableItem> data, OnItemCheckedListener action) {
+
 		super(context, layoutRowId, data);
-		
+
 		mContext = context;
-		inflator = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflator = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		itens = data;
+		
+		this.action = action;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
-		LaunchableListItem currentItem = itens.get(position);
+		LaunchableItem currentItem = itens.get(position);
 		if (convertView == null) {
 
 		    convertView= inflator.inflate(R.layout.item, null);
@@ -57,7 +61,12 @@ public class LaunchableItemAdapter extends ArrayAdapter {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView,
 						boolean isChecked) {
-					((LaunchableListItem) viewHolder.checkBox.getTag()).setSelected(isChecked);
+					
+					LaunchableItem itemChecked = ((LaunchableItem) viewHolder.checkBox.getTag()); 
+					if(itemChecked.isSelected() != isChecked){
+						itemChecked.setSelected(isChecked);
+						action.onItenChecked(itemChecked);
+					}
 				}
 			});
 
@@ -76,5 +85,4 @@ public class LaunchableItemAdapter extends ArrayAdapter {
 
 		return convertView;
 	}
-
 }
